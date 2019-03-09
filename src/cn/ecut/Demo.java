@@ -1,4 +1,4 @@
-package test2;
+package cn.ecut;
 
 public class Demo {
 
