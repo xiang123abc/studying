@@ -1,0 +1,13 @@
+修改文件或目录的权限的命令是
+
+chmod [who] [+ | - | =] [mode] 文件名
+
+chmod 777 index.html
+
+改变文件的所有者命令： chown 命令
+
+改变文件的所属组命令：chgrp命令
+
+
+在压缩的日志文件"youzan.log.gz"中查找关键字"exception"并统计出现次数
+ zgrep exception youzan.log.gz | wc -l 或 zcat youzan.log.gz | grep exception | wc -l

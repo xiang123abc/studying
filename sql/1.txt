@@ -1,0 +1,41 @@
+存在一张电商交易订单表order如下:
+id order_no shop_id user_id create_time
+1 E10001 201 101 2018-09-01 12:00:00
+2 E10002 202 102 2018-09-01 12:01:00
+3 E10003 201 103 2018-09-01 12:03:00
+统计订单销量(订单量)前十的店铺及到目前的订单量(一行记录算一个订单,
+order_no唯一)的sql: 
+
+mysql:   select shop_id,count(*) as num from order where 1 group by shop_id order by num desc limit 10
+oracle:  select  t.shop_id , t.num from (select shop_id,count(*) as num from order where 1 group by shop_id order by num desc ) t where rownum <=10
+
+group by 用法 :
+		SELECT
+	    ( SELECT d.dept_name FROM departments d WHERE de.dept_no = d.dept_no ) AS 部门,
+	    count( de.emp_no ) AS 人数 
+		FROM
+		    dept_emp de 
+		WHERE
+		    de.to_date = '9999-01-01' 
+		GROUP BY
+		    de.dept_no 
+		HAVING
+		    count( de.emp_no ) > 30000 
+		 
+HAVING  相当于条件筛选，但它与WHERE筛选不同，HAVING是对于GROUP BY对象进行筛选。
+
+limit  mysql 有 初始记录行的偏移量是 0(而不是 1) ，oracle 中没有,有 rownum  
+			入门篇
+		SELECT * FROM table LIMIT 0,10;//检索记录行1-10
+		SELECT * FROM table LIMIT 5;   //检索前 5 个记录行
+			进阶篇
+		SELECT * FROM table LIMIT 2,10;//检索记录行3-13
+		SELECT * FROM table LIMIT 5,20;//检索记录行6-25
+			高级篇
+		SELECT* FROMtable LIMIT 5,-1;//检索记录行6到结尾数据
+		SELECT* FROMtable LIMIT 0,-1;//检索全部记录 (可不用limit语句了)
+
+oracle的执行顺序 	 from .. where ... group by .. having .. select ..rownum.. order by
+	 rownum 是在order by 之前执行的,也就意味着它是先算好行才排序,针对这类问题的解决手法通常是  想办法让order by在 rownum之前执行,那么问题来了,怎么让order by 先执行呢?  答案是, 使用子查询,把子查询放在from 后面,那么就会第一个查询,好了,看代码
+	 select  rownum,e.*  from (select * from emp order by sal desc) e  where rn between 1 and 10;  
+	 如果使用rownum进行分页，要进行排序操作，则先排序，再使用rownum进行分页操作
