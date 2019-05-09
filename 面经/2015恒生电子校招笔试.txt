@@ -1,0 +1,21 @@
+http://www.cnblogs.com/dingshilei/p/4164866.html
+
+错题
+每次 update/delete/insert  都会导致索引重新更新
+
+一  6
+abcd 依次入栈 不可能得到的出栈顺序的  （可以先入一个就出一个）
+A abcd   B cabd   C dcba  D	bcda
+　 abcd直接过得A；依次全入栈再出栈得C；a入栈，bcd直接过，a出栈得D。
+
+drwxr-xr-x
+d表示目录，w是写，r是读，x是执行，3个一组，分别是所有者、用户组或其他用户，即用户组为r-x,拥有读和执行权限。
+
+Java基本类型占用的字节数：
+1字节： byte , boolean
+2字节： short , char
+4字节： int , float
+8字节： long , double
+注：1字节(byte)=8位(bits)　
+
+Java中的一个char采用的是Unicode编码集，占用两个字节，而一个中文字符也是两个字节，因此Java中的char是可以表示一个中文字符的。
