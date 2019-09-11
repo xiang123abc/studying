@@ -6,6 +6,8 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Demo4 {
 
 	public static void main(String[] args) {
+		Thread t = new Thread();
+		t.start();
 		ArrayList arr= new ArrayList();
 		for(int i=0;i<17;i++) {
 			arr.add("a");
