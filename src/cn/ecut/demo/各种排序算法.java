@@ -1,84 +1,129 @@
 package cn.ecut.demo;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+
 /** https://mp.weixin.qq.com/s/t0dsJeN397wO41pwBWPeTg
- * ÅÅĞòµÄ·½·¨ÓĞ£º²åÈëÅÅĞò£¨Ö±½Ó²åÈëÅÅĞò¡¢Ï£¶ûÅÅĞò£©£¬½»»»ÅÅĞò£¨Ã°ÅİÅÅĞò¡¢¿ìËÙÅÅĞò£©£¬Ñ¡ÔñÅÅĞò£¨Ö±½ÓÑ¡ÔñÅÅĞò¡¢¶ÑÅÅĞò£©£¬
-	¹é²¢ÅÅĞò£¬·ÖÅäÅÅĞò£¨ÏäÅÅĞò¡¢»ùÊıÅÅĞò£©
+ * ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½Ğ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½Ó²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ò£©£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ò¡¢¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò£©£ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ò¡¢¶ï¿½ï¿½ï¿½ï¿½ò£©£ï¿½
+	ï¿½é²¢ï¿½ï¿½ï¿½ò£¬·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò¡¢»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * @author xiang
- * Ã°ÅİÅÅĞò£¬²åÈëÅÅĞò Æ½¾ùÊ±¼ä¸´ÔÓ¶È¶¼Îª  O(n2) £¬ ×îºÃÊ±¼ä¸´ÔÓ¶È¶¼Îª   O(n)
- * Ñ¡ÔñÅÅĞò¾ùÊ±¼ä¸´ÔÓ¶ÈºÍ×îºÃÊ±¼ä¸´ÔÓ¶È¶¼Îª  O(n2)
- * ¹é²¢ÅÅĞò£¬¿ìËÙÅÅĞòºÍ¶ÑÅÅĞò µÄ Æ½¾ùÊ±¼ä¸´ÔÓ¶ÈºÍ×îºÃÊ±¼ä¸´ÔÓ¶È¶¼Îª  O( nlogn)
- * Í°ÅÅĞò£¬¼ÆÊıÅÅĞò      µÄ Æ½¾ùÊ±¼ä¸´ÔÓ¶ÈºÍ×îºÃÊ±¼ä¸´ÔÓ¶È¶¼Îª  O(n+k)
+ * Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ò£¬²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ½ï¿½ï¿½Ê±ï¿½ä¸´ï¿½Ó¶È¶ï¿½Îª  O(n2) ï¿½ï¿½ ï¿½ï¿½ï¿½Ê±ï¿½ä¸´ï¿½Ó¶È¶ï¿½Îª   O(n)
+ * Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä¸´ï¿½Ó¶Èºï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä¸´ï¿½Ó¶È¶ï¿½Îª  O(n2)
+ * ï¿½é²¢ï¿½ï¿½ï¿½ò£¬¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¶ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Æ½ï¿½ï¿½Ê±ï¿½ä¸´ï¿½Ó¶Èºï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä¸´ï¿½Ó¶È¶ï¿½Îª  O( nlogn)
+ * Í°ï¿½ï¿½ï¿½ò£¬¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½      ï¿½ï¿½ Æ½ï¿½ï¿½Ê±ï¿½ä¸´ï¿½Ó¶Èºï¿½ï¿½ï¿½ï¿½Ê±ï¿½ä¸´ï¿½Ó¶È¶ï¿½Îª  O(n+k)
  *
  */
-public class ¸÷ÖÖÅÅĞòËã·¨ {
+ public class å„ç§æ’åºç®—æ³• {
 
 	public static void main(String[] args) {
-		int [] arr = {4,2,5,1,6};
-		HeapSort(arr);
+		int [] arr = {4,8,5,1,2,6,7,3};
+		quickSort2(arr,0,arr.length-1);
+		System.out.println(Arrays.toString(arr));
 	}
 	/**
-     * Ã°ÅİÅÅĞò
-     *×î¼ÑÇé¿ö£ºT(n) = O(n)   ×î²îÇé¿ö£ºT(n) = O(n2)   Æ½¾ùÇé¿ö£ºT(n) = O(n2)
+	 * ååºéå†
+	 */
+	public static List<Integer> postorderTraversal2(TreeNode root) {
+		LinkedList<TreeNode> list = new LinkedList();
+		LinkedList<Integer> list2 = new LinkedList();
+		list.add(root);
+		if( root== null)
+			return list2;
+		while(!list.isEmpty()) {
+			TreeNode node = list.pollLast();
+			list2.addFirst(node.val);
+			if(node.left!=null)
+				list.add(node.left);
+			if(node.right!=null)
+				list.add(node.right);
+		}
+		return list2;
+	}
+	/**
+	 * å¿«é€Ÿæ’åº
+	 * @param arr
+	 * @param low
+	 * @param high
+	 */
+	private static void quickSort2(int[] arr, int low, int high) {
+		if(low<high) {
+			int index = getIndex2(arr,low,high);
+			quickSort2(arr,0,index-1);
+			quickSort2(arr,index+1,high);
+		}
+	}
+	private static int getIndex2(int[] arr, int low, int high) {
+		int tmp = arr[low];
+		while(low<high) {
+			while(low < high && arr[high]>=tmp) {
+				high--;
+			}
+			arr[low] = arr[high];
+			while(low < high && arr[low]<=tmp) {
+				low++;
+			}
+			arr[high] = arr[low];
+		}
+		arr[low] = tmp;
+		return low;
+	}
+	private static void quickSort(int[] arr, int low, int high) {
+
+		if (low < high) {
+			// æ‰¾å¯»åŸºå‡†æ•°æ®çš„æ­£ç¡®ç´¢å¼•
+			int index = getIndex(arr, low, high);
+
+			// è¿›è¡Œè¿­ä»£å¯¹indexä¹‹å‰å’Œä¹‹åçš„æ•°ç»„è¿›è¡Œç›¸åŒçš„æ“ä½œä½¿æ•´ä¸ªæ•°ç»„å˜æˆæœ‰åº
+			quickSort(arr, 0, index - 1);
+			quickSort(arr, index + 1, high);
+			System.out.println(0);
+		}
+
+	}
+	private static int getIndex(int[] arr, int low, int high) {
+		// åŸºå‡†æ•°æ®
+		int tmp = arr[low];
+		while (low < high) {
+			// å½“é˜Ÿå°¾çš„å…ƒç´ å¤§äºç­‰äºåŸºå‡†æ•°æ®æ—¶,å‘å‰æŒªåŠ¨highæŒ‡é’ˆ
+			while (low < high && arr[high] >= tmp) {
+				high--;
+			}
+			// å¦‚æœé˜Ÿå°¾å…ƒç´ å°äºtmpäº†,éœ€è¦å°†å…¶èµ‹å€¼ç»™low
+			arr[low] = arr[high];
+			// å½“é˜Ÿé¦–å…ƒç´ å°äºç­‰äºtmpæ—¶,å‘å‰æŒªåŠ¨lowæŒ‡é’ˆ
+			while (low < high && arr[low] <= tmp) {
+				low++;
+			}
+			// å½“é˜Ÿé¦–å…ƒç´ å¤§äºtmpæ—¶,éœ€è¦å°†å…¶èµ‹å€¼ç»™high
+			arr[high] = arr[low];
+
+		}
+		// è·³å‡ºå¾ªç¯æ—¶lowå’Œhighç›¸ç­‰,æ­¤æ—¶çš„lowæˆ–highå°±æ˜¯tmpçš„æ­£ç¡®ç´¢å¼•ä½ç½®
+		// ç”±åŸç†éƒ¨åˆ†å¯ä»¥å¾ˆæ¸…æ¥šçš„çŸ¥é“lowä½ç½®çš„å€¼å¹¶ä¸æ˜¯tmp,æ‰€ä»¥éœ€è¦å°†tmpèµ‹å€¼ç»™arr[low]
+		arr[low] = tmp;
+		return low; // è¿”å›tmpçš„æ­£ç¡®ä½ç½®
+	}
+	 
+    /**
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ò·½·ï¿½
      * @param array
+     * @param start
+     * @param end
      * @return
      */
-    public static int[] bubbleSort(int[] array) {
-        if (array.length == 0)
-            return array;
-        for (int i = 0; i < array.length; i++)
-            for (int j = 0; j < array.length - 1 - i; j++)
-                if (array[j + 1] < array[j]) {
-                    int temp = array[j + 1];
-                    array[j + 1] = array[j];
-                    array[j] = temp;
-                }
+    public static int[] QuickSort(int[] array, int start, int end) {
+        if (array.length < 1 || start < 0 || end >= array.length || start > end) return null;
+        int smallIndex = partition(array, start, end);
+        if (smallIndex > start)
+            QuickSort(array, start, smallIndex - 1);
+        if (smallIndex < end)
+            QuickSort(array, smallIndex + 1, end);
         return array;
     }
-    /**
-     * Ñ¡ÔñÅÅĞò              Ñ¡ÔñÖ®ºó ×îĞ¡µÄÊı·½ÉÏÀ´
-     * ×î¼ÑÇé¿ö£ºT(n) = O(n2)  ×î²îÇé¿ö£ºT(n) = O(n2)  Æ½¾ùÇé¿ö£ºT(n) = O(n2)
-     * @param array
-     * @return
-     */
-    public static int[] selectionSort(int[] array) {
-        if (array.length == 0)
-            return array;
-        for (int i = 0; i < array.length; i++) {
-            int minIndex = i;
-            for (int j = i; j < array.length; j++) {
-                if (array[j] < array[minIndex]) //ÕÒµ½×îĞ¡µÄÊı
-                    minIndex = j; //½«×îĞ¡ÊıµÄË÷Òı±£´æ
-            }
-            int temp = array[minIndex];
-            array[minIndex] = array[i];
-            array[i] = temp;
-        }
-        return array;
-    }
-    /**
-     * ²åÈëÅÅĞò        ²åÈëÖ®Ç°ÒÑ¾­ÅÅĞòºÃµÄ Î»ÖÃ
-     * ×î¼ÑÇé¿ö£ºT(n) = O(n)   ×î»µÇé¿ö£ºT(n) = O(n2)   Æ½¾ùÇé¿ö£ºT(n) = O(n2)
-     * @param array
-     * @return
-     */
-    public static int[] insertionSort(int[] array) {
-        if (array.length == 0)
-            return array;
-        int current;
-        for (int i = 0; i < array.length - 1; i++) {
-            current = array[i + 1];
-            int preIndex = i;
-            while (preIndex >= 0 && current < array[preIndex]) {
-                array[preIndex + 1] = array[preIndex];
-                preIndex--;
-            }
-            array[preIndex + 1] = current;
-        }
-        return array;
-    }
-    /**
-     * ¹é²¢ÅÅĞò
+
+	/**
+     * ï¿½é²¢ï¿½ï¿½ï¿½ï¿½
      *
      * @param array
      * @return
@@ -88,10 +133,26 @@ public class ¸÷ÖÖÅÅĞòËã·¨ {
         int mid = array.length / 2;
         int[] left = Arrays.copyOfRange(array, 0, mid);
         int[] right = Arrays.copyOfRange(array, mid, array.length);
-        return merge(MergeSort(left), MergeSort(right));
+        return merge2(MergeSort(left), MergeSort(right));
+    }
+    
+    public static int[] merge2(int[] left, int[] right) {
+    	int [] res = new int[left.length+right.length];
+    	for(int index = 0,i = 0,j=0;index<res.length;index++) {
+    		if(i>=left.length) {
+    			res[index] = right[j++];
+    		}else if(j>=right.length){
+    			res[index] = left[i++];
+    		} else if(left[i]>right[j]) {
+    			res[index] = right[j++];
+    		}else {
+    			res[index] = left[i++];
+    		}
+    	}
+		return res;
     }
     /**
-     * ¹é²¢ÅÅĞò¡ª¡ª½«Á½¶ÎÅÅĞòºÃµÄÊı×é½áºÏ³ÉÒ»¸öÅÅĞòÊı×é
+     * ï¿½é²¢ï¿½ï¿½ï¿½ò¡ª¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï³ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * @param left
      * @param right
@@ -111,24 +172,69 @@ public class ¸÷ÖÖÅÅĞòËã·¨ {
         }
         return result;
     }
-    /**
-     * ¿ìËÙÅÅĞò·½·¨
+	/**
+     * Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     *ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½T(n) = O(n)   ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½T(n) = O(n2)   Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½T(n) = O(n2)
      * @param array
-     * @param start
-     * @param end
      * @return
      */
-    public static int[] QuickSort(int[] array, int start, int end) {
-        if (array.length < 1 || start < 0 || end >= array.length || start > end) return null;
-        int smallIndex = partition(array, start, end);
-        if (smallIndex > start)
-            QuickSort(array, start, smallIndex - 1);
-        if (smallIndex < end)
-            QuickSort(array, smallIndex + 1, end);
+    public static int[] bubbleSort(int[] array) {
+        if (array.length == 0)
+            return array;
+        for (int i = 0; i < array.length; i++)
+            for (int j = 0; j < array.length - 1 - i; j++)
+                if (array[j + 1] < array[j]) {
+                    int temp = array[j + 1];
+                    array[j + 1] = array[j];
+                    array[j] = temp;
+                }
         return array;
     }
     /**
-     * ¿ìËÙÅÅĞòËã·¨¡ª¡ªpartition  
+     * Ñ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½              Ñ¡ï¿½ï¿½Ö®ï¿½ï¿½ ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½T(n) = O(n2)  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½T(n) = O(n2)  Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½T(n) = O(n2)
+     * @param array
+     * @return
+     */
+    public static int[] selectionSort(int[] array) {
+        if (array.length == 0)
+            return array;
+        for (int i = 0; i < array.length; i++) {
+            int minIndex = i;
+            for (int j = i; j < array.length; j++) {
+                if (array[j] < array[minIndex]) //ï¿½Òµï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½
+                    minIndex = j; //ï¿½ï¿½ï¿½ï¿½Ğ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            }
+            int temp = array[minIndex];
+            array[minIndex] = array[i];
+            array[i] = temp;
+        }
+        return array;
+    }
+    /**
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½        ï¿½ï¿½ï¿½ï¿½Ö®Ç°ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ Î»ï¿½ï¿½
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½T(n) = O(n)   ï¿½î»µï¿½ï¿½ï¿½ï¿½ï¿½T(n) = O(n2)   Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½T(n) = O(n2)
+     * @param array
+     * @return
+     */
+    public static int[] insertionSort(int[] array) {
+        if (array.length == 0)
+            return array;
+        int current;
+        for (int i = 0; i < array.length - 1; i++) {
+            current = array[i + 1];
+            int preIndex = i;
+            while (preIndex >= 0 && current < array[preIndex]) {
+                array[preIndex + 1] = array[preIndex];
+                preIndex--;
+            }
+            array[preIndex + 1] = current;
+        }
+        return array;
+    }
+   
+    /**
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½partition  
      * @param array
      * @param start
      * @param end
@@ -147,7 +253,7 @@ public class ¸÷ÖÖÅÅĞòËã·¨ {
         return smallIndex;
     }
     /**
-     * ½»»»Êı×éÄÚÁ½¸öÔªËØ
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½
      * @param array
      * @param i
      * @param j
@@ -157,10 +263,10 @@ public class ¸÷ÖÖÅÅĞòËã·¨ {
         array[i] = array[j];
         array[j] = temp;
     }
-  //ÉùÃ÷È«¾Ö±äÁ¿£¬ÓÃÓÚ¼ÇÂ¼Êı×éarrayµÄ³¤¶È£»
+  //ï¿½ï¿½ï¿½ï¿½È«ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¼ï¿½Â¼ï¿½ï¿½ï¿½ï¿½arrayï¿½Ä³ï¿½ï¿½È£ï¿½
     static int len;
     /**
-     * ¶ÑÅÅĞòËã·¨
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨
      *
      * @param array
      * @return
@@ -168,9 +274,9 @@ public class ¸÷ÖÖÅÅĞòËã·¨ {
     public static int[] HeapSort(int[] array) {
         len = array.length;
         if (len < 1) return array;
-        //1.¹¹½¨Ò»¸ö×î´ó¶Ñ
+        //1.ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         buildMaxHeap(array);
-        //2.Ñ­»·½«¶ÑÊ×Î»£¨×î´óÖµ£©ÓëÄ©Î»½»»»£¬È»ºóÔÚÖØĞÂµ÷Õû×î´ó¶Ñ
+        //2.Ñ­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½Ä©Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         while (len > 0) {
             swap(array, 0, len - 1);
             len--;
@@ -179,31 +285,31 @@ public class ¸÷ÖÖÅÅĞòËã·¨ {
         return array;
     }
     /**
-     * ½¨Á¢×î´ó¶Ñ
+     * ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      *
      * @param array
      */
     public static void buildMaxHeap(int[] array) {
-        //´Ó×îºóÒ»¸ö·ÇÒ¶×Ó½Úµã¿ªÊ¼ÏòÉÏ¹¹Ôì×î´ó¶Ñ
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½Ò¶ï¿½Ó½Úµã¿ªÊ¼ï¿½ï¿½ï¿½Ï¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         for (int i = (len - 1) / 2; i >= 0; i--) {
             adjustHeap(array, i);
         }
     }
     /**
-     * µ÷ÕûÊ¹Ö®³ÉÎª×î´ó¶Ñ
+     * ï¿½ï¿½ï¿½ï¿½Ê¹Ö®ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½
      *
      * @param array
      * @param i
      */
     public static void adjustHeap(int[] array, int i) {
         int maxIndex = i;
-        //Èç¹ûÓĞ×ó×ÓÊ÷£¬ÇÒ×ó×ÓÊ÷´óÓÚ¸¸½Úµã£¬Ôò½«×î´óÖ¸ÕëÖ¸Ïò×ó×ÓÊ÷
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½Úµã£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (i * 2 < len && array[i * 2] > array[maxIndex])
             maxIndex = i * 2;
-        //Èç¹ûÓĞÓÒ×ÓÊ÷£¬ÇÒÓÒ×ÓÊ÷´óÓÚ¸¸½Úµã£¬Ôò½«×î´óÖ¸ÕëÖ¸ÏòÓÒ×ÓÊ÷
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½Úµã£¬ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (i * 2 + 1 < len && array[i * 2 + 1] > array[maxIndex])
             maxIndex = i * 2 + 1;
-        //Èç¹û¸¸½Úµã²»ÊÇ×î´óÖµ£¬Ôò½«¸¸½ÚµãÓë×î´óÖµ½»»»£¬²¢ÇÒµİ¹éµ÷ÕûÓë¸¸½Úµã½»»»µÄÎ»ÖÃ¡£
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úµã²»ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ò½«¸ï¿½ï¿½Úµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òµİ¹ï¿½ï¿½ï¿½ï¿½ï¿½ë¸¸ï¿½Úµã½»ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã¡ï¿½
         if (maxIndex != i) {
             swap(array, maxIndex, i);
             adjustHeap(array, maxIndex);
