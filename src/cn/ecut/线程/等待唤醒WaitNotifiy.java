@@ -1,11 +1,11 @@
-package Ïß³Ì;
+package cn.ecut.çº¿ç¨‹;
 /**
- * ¸ø¼ÓËø¶ÔÏó µ÷ÓÃ wait ,notify µÈ·½·¨ Ç°  µ±Ç°Ïß³Ì±ØĞë  ÏÈµÃµ½ ¸Ã¶ÔÏóµÄ Ëø  ±ÈÈçÍ¨¹ısynchronized £¬È»ºóÏÂsynchronized ÄÚµ÷ÓÃ
- *  wait µ÷ÓÃºó£¬ ¶ªÊ§Ëø   £¬µ±ÆäËûÏß³Ì ¸øÕâ¸öËø¶ÔÏóµ÷ÓÃ notifyºó ÇÒ ÔÚÖ´ĞĞÍêsynchronized ´úÂë¿éºó ÕæÕı ÊÍ·ÅËø¶ÔÏó Ê± £¬Õâ¸öÏß³Ì¾Í¿ÉÒÔÖ´ĞĞwait()ºóµÄ´úÂë
+ * ç»™åŠ é”å¯¹è±¡ è°ƒç”¨ wait ,notify ç­‰æ–¹æ³• å‰  å½“å‰çº¿ç¨‹å¿…é¡»  å…ˆå¾—åˆ° è¯¥å¯¹è±¡çš„ é”  æ¯”å¦‚é€šè¿‡synchronized ï¼Œç„¶åä¸‹synchronized å†…è°ƒç”¨
+ *  wait è°ƒç”¨åï¼Œ ä¸¢å¤±é”   ï¼Œå½“å…¶ä»–çº¿ç¨‹ ç»™è¿™ä¸ªé”å¯¹è±¡è°ƒç”¨ notifyå ä¸” åœ¨æ‰§è¡Œå®Œsynchronized ä»£ç å—å çœŸæ­£ é‡Šæ”¾é”å¯¹è±¡ æ—¶ ï¼Œè¿™ä¸ªçº¿ç¨‹å°±å¯ä»¥æ‰§è¡Œwait()åçš„ä»£ç 
  * @author xiang
  *
  */
-public class µÈ´ı»½ĞÑWaitNotifiy {
+public class ç­‰å¾…å”¤é†’WaitNotifiy {
 	static Object obj = new Object();
 	public class T1 extends Thread{
 		@Override
@@ -43,8 +43,8 @@ public class µÈ´ı»½ĞÑWaitNotifiy {
 		}
 	}
 	public static void main(String[] args) {
-		T1 t1 = new µÈ´ı»½ĞÑWaitNotifiy().new T1();
-		T2 t2 = new µÈ´ı»½ĞÑWaitNotifiy().new T2();
+		T1 t1 = new ç­‰å¾…å”¤é†’WaitNotifiy().new T1();
+		T2 t2 = new ç­‰å¾…å”¤é†’WaitNotifiy().new T2();
 		t1.start();
 		t2.start();
 	}

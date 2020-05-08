@@ -1,8 +1,8 @@
-package 线程;
+package cn.ecut.绾跨▼;
 
-public class 线程同步 implements Runnable{
+public class 绾跨▼鍚屾 implements Runnable{
 	
-	static 线程同步 instance  =  new 线程同步();
+	static 绾跨▼鍚屾 instance  =  new 绾跨▼鍚屾();
 	static int i = 0;
 	@Override
 	public void run() {
@@ -18,7 +18,7 @@ public class 线程同步 implements Runnable{
 	}
 	public static void main(String[] args) throws InterruptedException {
 		Thread t1 = new Thread (instance);//
-		Thread t2 = new Thread (instance);// 必须是同一个当前对象的实例，不然不能用 synchronized 修饰方法
+		Thread t2 = new Thread (instance);// 蹇呴』鏄悓涓�涓綋鍓嶅璞＄殑瀹炰緥锛屼笉鐒朵笉鑳界敤 synchronized 淇グ鏂规硶
 		t1.start();
 		t2.start();
 		t1.join();

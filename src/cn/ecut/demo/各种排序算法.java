@@ -18,28 +18,11 @@ import java.util.List;
 
 	public static void main(String[] args) {
 		int [] arr = {4,8,5,1,2,6,7,3};
-		quickSort2(arr,0,arr.length-1);
+		MergeSort(arr);
 		System.out.println(Arrays.toString(arr));
 	}
-	/**
-	 * 后序遍历
-	 */
-	public static List<Integer> postorderTraversal2(TreeNode root) {
-		LinkedList<TreeNode> list = new LinkedList();
-		LinkedList<Integer> list2 = new LinkedList();
-		list.add(root);
-		if( root== null)
-			return list2;
-		while(!list.isEmpty()) {
-			TreeNode node = list.pollLast();
-			list2.addFirst(node.val);
-			if(node.left!=null)
-				list.add(node.left);
-			if(node.right!=null)
-				list.add(node.right);
-		}
-		return list2;
-	}
+	
+
 	/**
 	 * 快速排序
 	 * @param arr
@@ -123,7 +106,7 @@ import java.util.List;
     }
 
 	/**
-     * �鲢����
+     * 归并,二分？
      *
      * @param array
      * @return
@@ -131,29 +114,31 @@ import java.util.List;
     public static int[] MergeSort(int[] array) {
         if (array.length < 2) return array;
         int mid = array.length / 2;
+        //Arrays.copyOfRange(array, 0, mid);
         int[] left = Arrays.copyOfRange(array, 0, mid);
         int[] right = Arrays.copyOfRange(array, mid, array.length);
         return merge2(MergeSort(left), MergeSort(right));
     }
     
-    public static int[] merge2(int[] left, int[] right) {
+    public static int[] merge2(int[] left, int[] right) {//4 8, 1 5
     	int [] res = new int[left.length+right.length];
     	for(int index = 0,i = 0,j=0;index<res.length;index++) {
-    		if(i>=left.length) {
+    		if(i>=left.length) {   // 左边的数组取完了，直接取右边的
     			res[index] = right[j++];
-    		}else if(j>=right.length){
+    		}else if(j>=right.length){// 右边的数组取完了，直接取左边的
     			res[index] = left[i++];
-    		} else if(left[i]>right[j]) {
+    		} else if(left[i]>right[j]) {//左边的 大于 右边的，取右边的，右边的j++（移一位）
     			res[index] = right[j++];
-    		}else {
+    		}else {						//右边的 大于左边的，取左边边的，右边的i++（移一位）
     			res[index] = left[i++];
     		}
     	}
+    	// 4 8 ,1 5 ---->得到新数组  1 4 5 8 
 		return res;
     }
     /**
      * �鲢���򡪡�����������õ������ϳ�һ����������
-     *
+     *  归并
      * @param left
      * @param right
      * @return

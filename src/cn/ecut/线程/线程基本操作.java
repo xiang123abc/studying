@@ -1,12 +1,12 @@
-package Ïß³Ì;
+package cn.ecut.çº¿ç¨‹;
 
-public class Ïß³Ì»ù±¾²Ù×÷ {
+public class çº¿ç¨‹åŸºæœ¬æ“ä½œ {
 	
 	public static void main(String[] args) throws Exception {
 		test7();
 	}
 	/**
-	 * ÊµÏÖÏß³Ì  ·½·¨1   ¼Ì³Ğ ThreadÀà
+	 * å®ç°çº¿ç¨‹  æ–¹æ³•1   ç»§æ‰¿ Threadç±»
 	 */
 	public void test1() {
 		Thread t1 = new Thread() {
@@ -54,16 +54,16 @@ public class Ïß³Ì»ù±¾²Ù×÷ {
 		
 	};
 	/**
-	 * ÊµÏÖÏß³Ì  ·½·¨2 ÊµÏÖRunnable½Ó¿Ú,ÖØĞ´run·½·¨
+	 * å®ç°çº¿ç¨‹  æ–¹æ³•2 å®ç°Runnableæ¥å£,é‡å†™runæ–¹æ³•
 	 */
 	public static void test2() {
-		new Ïß³Ì»ù±¾²Ù×÷().new RunnableImp().run();
+		new çº¿ç¨‹åŸºæœ¬æ“ä½œ().new RunnableImp().run();
 	}
 	/**
-	 * Ïß³ÌÖÕÖ¹£¬ stop , ²»ÍÆ¼ö
+	 * çº¿ç¨‹ç»ˆæ­¢ï¼Œ stop , ä¸æ¨è
 	 */
 	public static void test3() {
-		new Ïß³Ì»ù±¾²Ù×÷().new ThreadEx().stop();
+		new çº¿ç¨‹åŸºæœ¬æ“ä½œ().new ThreadEx().stop();
 		while(true) {
 			System.out.println("a");
 		}
@@ -81,7 +81,7 @@ public class Ïß³Ì»ù±¾²Ù×÷ {
 					Thread.sleep(10);
 				} catch (InterruptedException e) {
 					System.out.println("interrupt when sleep");
-					//ÉèÖÃÖĞ¶Ï×´Ì¬£¬Å×³öÒì³£ºó»áÇå¿ÕÖĞ¶Ï±ê¼ÇÎ»
+					//è®¾ç½®ä¸­æ–­çŠ¶æ€ï¼ŒæŠ›å‡ºå¼‚å¸¸åä¼šæ¸…ç©ºä¸­æ–­æ ‡è®°ä½
 					Thread.currentThread().interrupt();
 				}
 			}
@@ -89,10 +89,10 @@ public class Ïß³Ì»ù±¾²Ù×÷ {
 		}
 	}
 	/**
-	 * Ïß³ÌÖĞ¶Ï
+	 * çº¿ç¨‹ä¸­æ–­
 	 */
 	public static void test4()  {
-		ThreadEx2 t = new Ïß³Ì»ù±¾²Ù×÷().new ThreadEx2();
+		ThreadEx2 t = new çº¿ç¨‹åŸºæœ¬æ“ä½œ().new ThreadEx2();
 		t.start();
 		try {
 			Thread.sleep(100);
@@ -122,30 +122,30 @@ public class Ïß³Ì»ù±¾²Ù×÷ {
 	}
 	/**
 	 * jps ,jstack 14472
-	 * suspend() ¹ÒÆğ    resume()  ¼ÌĞøÖ´ĞĞ  ¶¼ÒÑ¾­·ÏÆú
-	 *  suspend() ²»»áÊÍ·ÅËø£¬Èç¹û¼ÓËø·¢ÉúÔÚresume()Ö®Ç°£¬ÔòËÀËø·¢Éú
+	 * suspend() æŒ‚èµ·    resume()  ç»§ç»­æ‰§è¡Œ  éƒ½å·²ç»åºŸå¼ƒ
+	 *  suspend() ä¸ä¼šé‡Šæ”¾é”ï¼Œå¦‚æœåŠ é”å‘ç”Ÿåœ¨resume()ä¹‹å‰ï¼Œåˆ™æ­»é”å‘ç”Ÿ
 	 *  
 	 * @throws InterruptedException
 	 */
 	public static void test5() throws InterruptedException {
-		ThreadEx3 t1 = new Ïß³Ì»ù±¾²Ù×÷().new ThreadEx3("t1");
-		ThreadEx3 t2 = new Ïß³Ì»ù±¾²Ù×÷().new ThreadEx3("t2");
+		ThreadEx3 t1 = new çº¿ç¨‹åŸºæœ¬æ“ä½œ().new ThreadEx3("t1");
+		ThreadEx3 t2 = new çº¿ç¨‹åŸºæœ¬æ“ä½œ().new ThreadEx3("t2");
 		t1.start();
-		Thread.sleep(100);//±£Ö¤t1 ÒÑ¾­¹ÒÆğ
+		Thread.sleep(100);//ä¿è¯t1 å·²ç»æŒ‚èµ·
 		t2.start();
 		t1.resume();
-		t2.resume();//¿ÉÄÜt2ÏÈÖ´ĞĞresume,È»ºóÖ´ĞĞrunÖĞ  ¹ÒÆğ suspend £¬t2Ïß³Ì Î´½áÊø
-		t1.join();//µÈ´ıt1½áÊø
-		t2.join();//µÈ´ıt2½áÊø
+		t2.resume();//å¯èƒ½t2å…ˆæ‰§è¡Œresume,ç„¶åæ‰§è¡Œrunä¸­  æŒ‚èµ· suspend ï¼Œt2çº¿ç¨‹ æœªç»“æŸ
+		t1.join();//ç­‰å¾…t1ç»“æŸ
+		t2.join();//ç­‰å¾…t2ç»“æŸ
 	}
 	/**
-	 * Ç«ÈÃ static  yield
+	 * è°¦è®© static  yield
 	 * @throws InterruptedException 
 	 */
 	public static void test6() throws InterruptedException {
-		ThreadEx3 t1 = new Ïß³Ì»ù±¾²Ù×÷().new ThreadEx3("t1");
+		ThreadEx3 t1 = new çº¿ç¨‹åŸºæœ¬æ“ä½œ().new ThreadEx3("t1");
 		t1.start();
-		t1.join();//µÈ´ıt1½áÊø
+		t1.join();//ç­‰å¾…t1ç»“æŸ
 		Thread.yield();
 	}
 	class ThreadEx4 extends Thread{
@@ -175,13 +175,13 @@ public class Ïß³Ì»ù±¾²Ù×÷ {
 		}
 	}
 	/**
-	 * Ïß³ÌÓÅÏÈ¼¶ 
+	 * çº¿ç¨‹ä¼˜å…ˆçº§ 
 	 * Thread.MIN_PRIORITY  1
 	 * Thread.MAX_PRIORITY  10
 	 */
 	public static void test7() {
-		ThreadEx4 t1 = new Ïß³Ì»ù±¾²Ù×÷().new ThreadEx4();
-		ThreadEx5 t2 = new Ïß³Ì»ù±¾²Ù×÷().new ThreadEx5();
+		ThreadEx4 t1 = new çº¿ç¨‹åŸºæœ¬æ“ä½œ().new ThreadEx4();
+		ThreadEx5 t2 = new çº¿ç¨‹åŸºæœ¬æ“ä½œ().new ThreadEx5();
 		t1.setPriority(Thread.MIN_PRIORITY);
 		t2.setPriority(Thread.MAX_PRIORITY);
 		t1.start();
